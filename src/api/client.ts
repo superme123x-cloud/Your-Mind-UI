@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-// الرابط المباشر للباك إند أونلاين
 const API_BASE_URL = 'https://yourmind.runasp.net/api';
 
 export const apiClient = axios.create({
@@ -45,39 +44,52 @@ export const authApi = {
     apiClient.post('/auth/register', credentials),
 };
 
-// 2. المهام (Tasks)
+// 2. المهام (Tasks) - متوافقة مع (list, today, toggle, reorder, create, update, delete)
 export const tasksApi = {
   getAll: () => apiClient.get('/tasks'),
+  list: () => apiClient.get('/tasks'),
+  today: () => apiClient.get('/tasks/today'),
   create: (data: any) => apiClient.post('/tasks', data),
   update: (id: string | number, data: any) => apiClient.put(`/tasks/${id}`, data),
+  toggle: (id: string | number) => apiClient.patch(`/tasks/${id}/toggle`),
+  reorder: (data: any) => apiClient.post('/tasks/reorder', data),
   delete: (id: string | number) => apiClient.delete(`/tasks/${id}`),
 };
-export const tasks = tasksApi; // توافقاً مع أي استدعاء آخر
+export const tasks = tasksApi;
 
-// 3. المشاريع (Projects)
+// 3. المشاريع (Projects) - متوافقة مع (list, getAll, update, create, delete)
 export const projectsApi = {
   getAll: () => apiClient.get('/projects'),
+  list: () => apiClient.get('/projects'),
   create: (data: any) => apiClient.post('/projects', data),
+  update: (id: string | number, data: any) => apiClient.put(`/projects/${id}`, data),
   delete: (id: string | number) => apiClient.delete(`/projects/${id}`),
 };
 export const projects = projectsApi;
 
-// 4. الإحصائيات (Stats)
+// 4. الإحصائيات (Stats) - متوافقة مع (getStats, weekly, summary, distribution)
 export const statsApi = {
   getStats: () => apiClient.get('/stats'),
+  weekly: () => apiClient.get('/stats/weekly'),
+  summary: () => apiClient.get('/stats/summary'),
+  distribution: () => apiClient.get('/stats/distribution'),
 };
 export const stats = statsApi;
 
-// 5. المساعد الذكي / الـ AI
+// 5. المساعد الذكي / الـ AI - متوافقة مع (chat, extract)
 export const aiApi = {
   chat: (message: string) => apiClient.post('/ai/chat', { message }),
+  extract: (data: any) => apiClient.post('/ai/extract', data),
 };
 export const ai = aiApi;
 
-// 6. المؤقت / البومودورو (Pomodoro / Timer)
+// 6. المؤقت / البومودورو - متوافقة مع (list, today, saveSession, complete)
 export const pomodoroApi = {
+  getAll: () => apiClient.get('/pomodoro'),
+  list: () => apiClient.get('/pomodoro'),
+  today: () => apiClient.get('/pomodoro/today'),
   saveSession: (data: any) => apiClient.post('/pomodoro', data),
-  getSessions: () => apiClient.get('/pomodoro'),
+  complete: (data: any) => apiClient.post('/pomodoro/complete', data),
 };
 export const pomodoro = pomodoroApi;
 
