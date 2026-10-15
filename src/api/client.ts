@@ -1,10 +1,7 @@
 import axios from 'axios';
 
-// تحديد رابط الـ API للباك إند أونلاين مع دعم متغيرات البيئة
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://yourmind.runasp.net/api';
-
 export const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: 'https://yourmind.runasp.net/api',
   headers: {
     'Content-Type': 'application/json',
   },
